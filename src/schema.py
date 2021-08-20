@@ -30,7 +30,7 @@ class Config(Tap):
 
 class TrainConfig(Tap):
     epoch: int
-    steps: int          # steps per epoch
+    batch_size: int
     learning_rate: float
     num_task: int
     
