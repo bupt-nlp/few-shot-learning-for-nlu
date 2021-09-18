@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Union, Optional, List, Dict
 from dataclasses import dataclass
+from dataclasses_json import dataclass_json
 from transformers import PreTrainedTokenizer
 
 from torch import Tensor
@@ -9,7 +10,7 @@ from tap import Tap
 from enum import Enum
 
 
-class Distance(Enum):
+class Metric(Enum):
     L2 = 'l2'
     Cosine = 'Cosine'
     
@@ -20,9 +21,9 @@ class FewShotDataSet(Enum):
 
 class Config(Tap):
     dataset: FewShotDataSet    # snips
-    distance: Distance      # distance
-    n_way_train: int            # numbner of support examples per class for training tasks
-    n_way_validation: int       # numbner of support examples per class for validation task
+    metric: Metric      # metric
+    n_way_train: int            # number of support examples per class for training tasks
+    n_way_validation: int       # number of support examples per class for validation task
     
     k_shot_train: int            # number of classes for training tasks
     k_shot_validation: int       # number of classes for validation tasks
@@ -33,7 +34,7 @@ class TrainConfig(Tap):
     batch_size: int
     learning_rate: float
     num_task: int
-    
+
 
 @dataclass
 class FewShotFeature:
@@ -67,4 +68,21 @@ class FewShotExample:
             token_type_ids=fields.token_type_ids,
             label=label2id[self.label]
         )
-        
+
+
+@dataclass_json
+@dataclass
+class TextClassificationInputExample:
+    raw_text: str
+    label: str
+
+    example_id: int = 0
+
+
+@dataclass_json
+@dataclass
+class SequenceTaggingInputExample:
+    raw_text: str
+    labels: List[str]
+
+    example_id: int = 0

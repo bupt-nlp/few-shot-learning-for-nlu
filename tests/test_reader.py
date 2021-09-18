@@ -13,7 +13,7 @@ def config():
     sys.argv = [
         '',
         '--dataset', 'snips',
-        '--distance', 'l2',
+        '--metric', 'l2',
         '--n_way_train', '5',
         '--n_way_validation', '12',
         

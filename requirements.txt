@@ -9,7 +9,6 @@ pytype>=2021.3.3
 semver
 requests
 lxml
-pre-commit
 mkdocs
 mkdocs-material
 types-requests

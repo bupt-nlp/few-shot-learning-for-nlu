@@ -6,11 +6,12 @@ from src.schema import (
     FewShotExample
 )
 
+
 class DataSetReader:
     """base DataSet reader"""
     def __init__(self, config: Config):
         self.config = config
         
-    def read(self, file: str) -> List[FewShotExample]:
+    def read(self, file: str):
         """read example from file"""
         raise NotImplementedError

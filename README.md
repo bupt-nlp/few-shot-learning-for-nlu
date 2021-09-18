@@ -18,7 +18,7 @@ There are two config for few-shot and training period.
 ```python
 class Config(Tap):
     dataset: FewShotDataSet    # snips
-    distance: Distance      # distance
+    distance: Metric      # metric
     n_way_train: int            # numbner of support examples per class for training tasks
     n_way_validation: int       # numbner of support examples per class for validation task
     
@@ -41,6 +41,10 @@ class TrainConfig(Tap):
 ```
 
 
+## Reference Projects
+
+* [few-shot](https://github.com/oscarknagg/few-shot)
+* []()
 
 ## Changelog 
 
