@@ -14,7 +14,6 @@ from src.dataset_reader.base import DataSetReader
 
 
 class TextClassificationDataSetReader(DataSetReader):
-
     def read(self, file: str) -> List[TextClassificationInputExample]:
         examples = []
         with open(file, 'r', encoding='utf-8') as f:
