@@ -3,12 +3,13 @@ from __future__ import annotations
 from typing import List
 from collections import defaultdict
 import json
+from pytorch_lightning import LightningDataModule
 
 from src.schema import (
-    Config,
     FewShotExample,
     TextClassificationInputExample
 )
+from src.config import Config
 
 from src.dataset_reader.base import DataSetReader
 
@@ -18,7 +19,7 @@ class TextClassificationDataSetReader(DataSetReader):
         examples = []
         with open(file, 'r', encoding='utf-8') as f:
             for index, line in enumerate(f):
-                example: TextClassificationInputExample = TextClassificationInputExample.from_json(line)
+                example = TextClassificationInputExample.from_json(line)
                 example.example_id = index
                 examples.append(example)
         return examples
@@ -83,6 +84,10 @@ class BankingDataSetReader(CLINCDataSetReader):
     pass
 
 
-
-
-
+class TextClassificationDataModule(LightningDataModule):
+    def __init__(
+            self,
+            train_examples: List[TextClassificationInputExample],
+            val_examples: List[TextClassificationInputExample]
+    ):
+        pass

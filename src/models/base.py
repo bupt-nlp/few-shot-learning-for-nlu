@@ -4,12 +4,16 @@ Base Few Shot models
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
+
+import torch
 from torch import (
     nn,
     Tensor
 )
 
-from src.schema import Config, TrainConfig, Metric
+from src.config import Config, TrainerConfig
+from src.schema import Metric
+from src.utils import l2, cosine
 
 
 @dataclass
@@ -22,14 +26,11 @@ class FewShotBatchFeather:
 
 
 class FewShotModel(nn.Module):
-    def __init__(self, config: Config, train_config: TrainConfig):
+    def __init__(self, config: Config, train_config: TrainerConfig):
         super().__init__()
 
         self.config = config
         self.train_config = train_config
-
-    def forward(self, train_feature: FewShotBatchFeather, support_set_feature: FewShotBatchFeather):
-        raise NotImplementedError
 
     def metrics(self, feature_space: Tensor, support_set_feature_space: Tensor, metric: Metric) -> Tensor:
         """
@@ -42,17 +43,7 @@ class FewShotModel(nn.Module):
         Returns: the loss between spaces
         """
         if metric == Metric.L2:
-            return self.l2_metric(feature_space, support_set_feature_space)
-
-    @staticmethod
-    def l2_metric(feature_space: Tensor, support_set_feature_space: Tensor) -> Tensor:
-        """
-        run L2 metric between train/input feature space and support set feature space
-        Args:
-            feature_space:
-            support_set_feature_space:
-
-        Returns:
-
-        """
-        
+            return l2(feature_space, support_set_feature_space)
+        if metric == Metric.Cosine:
+            return cosine(feature_space, support_set_feature_space)
+        raise NotImplementedError(f'not supported metric<{metric}>')

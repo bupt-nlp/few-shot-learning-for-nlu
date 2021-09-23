@@ -11,9 +11,9 @@ import pytorch_lightning as pl
 from src.config import Config, TrainerConfig
 
 
-class MatchingNetworkForIntentDetection(pl.LightningModule):
+class RetriverForIntentDetection(pl.LightningModule):
     def __init__(self, config: Config, train_config: TrainerConfig):
-        super(MatchingNetworkForIntentDetection, self).__init__()
+        super(RetriverForIntentDetection, self).__init__()
         self.config = config
         self.train_config = train_config
 

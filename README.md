@@ -27,7 +27,7 @@ class Config(Tap):
 ```
 
 ```python
-class TrainConfig(Tap):
+class TrainerConfig(Tap):
     epoch: int
     steps: int          # steps per epoch
     learning_rate: float

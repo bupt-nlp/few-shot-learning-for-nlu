@@ -2,8 +2,8 @@ import os
 import sys
 from pytest import fixture
 
-from src.schema import Config
-from src.dataset_reader.snips import SnipsDataSetReader
+from src.config import Config
+from src.dataset_reader import text_classification
 
 root_dir = os.path.dirname(os.path.dirname(__file__))
 
@@ -25,7 +25,7 @@ def config():
 
 def test_snips_dataset_reader(config: Config):
     train_file = os.path.join(root_dir, 'data/snips/intent-classification/snips_test.json.corpus')
-    reader = SnipsDataSetReader(config)
+    reader = text_classification.SnipsDataSetReader(config)
     
     examples = reader.read(train_file)
     assert len(examples) > 0

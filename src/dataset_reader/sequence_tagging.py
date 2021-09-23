@@ -4,10 +4,10 @@ from typing import List
 from collections import defaultdict
 import pandas as pd
 
-from src.schema import (
-    Config,
-    SequenceTaggingInputExample
+from src.config import (
+    Config
 )
+from src.schema import SequenceTaggingInputExample
 
 from src.dataset_reader.base import DataSetReader
 

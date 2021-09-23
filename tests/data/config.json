@@ -1,0 +1,17 @@
+{
+  "dataset": "clinc",
+  "metric": "l2",
+  "n_way": 5,
+  "k_shot": 5,
+  "num_labels": 5,
+  "pretrain_model": "bert-base-uncased",
+  "train_file": "./data/",
+  "evaluation_file": "./data/",
+  "test_file": "./data/",
+
+  "trainer": {
+    "max_epochs": "",
+    "auto_lr_find": true,
+    ""
+  }
+}

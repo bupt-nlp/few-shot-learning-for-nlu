@@ -1,0 +1,18 @@
+{
+  "dataset": "clinc",
+  "metric": "l2",
+  "n_way": 5,
+  "k_shot": 5,
+  "num_labels": 5,
+  "pretrain_model": "bert-base-uncased",
+  "train_file": "./data/",
+  "evaluation_file": "./data/",
+  "test_file": "./data/",
+
+  "train": {
+    "epoch": 10,
+    "batch_size": 16,
+    "learning_rate": 1e-6,
+    "warmup_rate": 0.1
+  }
+}

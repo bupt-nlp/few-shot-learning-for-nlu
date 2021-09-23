@@ -1,3 +1,7 @@
+
+SOURCE_GLOB=$(wildcard src/**/*.py tests/**/*.py models/**/.py)
+
+
 .PHONY: lint
 lint: pylint pycodestyle flake8 mypy
 
@@ -38,6 +42,16 @@ pytype:
 		--disable=import-error \
 		examples/
 
+.PYHONY: test
+test:
+	make lint
+	pytest src/ models/
+
 .PYONY: install
 install:
 	pip install -r requirements.txt
+	pip install -r requirements-dev.txt
+
+.PHONY: docs
+docs:
+	mkdocs serve
