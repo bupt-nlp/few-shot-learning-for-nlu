@@ -1,16 +1,17 @@
 from __future__ import annotations
 
+import os.path
 from typing import Optional
 
 import setuptools.config
-from torch import Tensor, optim
+from torch import Tensor, optim, nn
 from transformers import BertConfig
 from transformers.models.bert import BertForSequenceClassification, BertModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
 import pytorch_lightning as pl
 
-from src.config import Config, TrainerConfig
+from src.config import Config, TrainerConfig, root_dir
 from src.schema import Metric
 from src.utils import get_metric
 
@@ -24,6 +25,8 @@ class BertForIntentDetection(pl.LightningModule):
         # 1. init the bert model
         bert_config = BertConfig.from_pretrained(config.pretrain_model)
         self.encoder = BertModel(bert_config)
+
+        self.loss_function = nn.LogSoftmax(dim=-1)
 
     def get_embedding(self, input_ids, attention_mask, token_type_ids) -> Tensor:
         return self.encoder(
@@ -55,8 +58,9 @@ class BertForIntentDetection(pl.LightningModule):
         return metric
 
     def training_step(self, batch, batch_index) -> Tensor:
-        input_ids, attention_mask, token_type_ids = batch
-        loss = self.forward(input_ids, attention_mask, token_type_ids)
+        input_ids, attention_mask, token_type_ids, labels = batch
+        metric = self.forward(input_ids, attention_mask, token_type_ids)
+        loss = self.loss_function(metric, labels)
         return loss
 
     def validation_step(self, batch, batch_index) -> Tensor:
@@ -67,3 +71,14 @@ class BertForIntentDetection(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = optim.AdamW(self.parameters(), lr=self.train_config.learning_rate)
         return optimizer
+
+
+def train():
+
+    config_file = os.path.join(root_dir, 'configs/intent_detection/bert.json')
+    config = Config.from_file(config_file)
+    train_config = TrainerConfig.from_file(config_file)
+
+    # 1. read data
+    all_examples = None
+

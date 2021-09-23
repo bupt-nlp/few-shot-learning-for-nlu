@@ -5,9 +5,9 @@
   "k_shot": 5,
   "num_labels": 5,
   "pretrain_model": "bert-base-uncased",
-  "train_file": "./data/",
-  "evaluation_file": "./data/",
-  "test_file": "./data/",
+  "train_file": "./data/clinc/intent-classification/clinc150_train.json.corpus",
+  "evaluation_file": "./data/clinc/intent-classification/clinc150_val.json.corpus",
+  "test_file": "./data/clinc/intent-classification/clinc150_test.json.corpus",
 
   "train": {
     "epoch": 10,

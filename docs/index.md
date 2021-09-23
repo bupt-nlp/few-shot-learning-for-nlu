@@ -5,14 +5,24 @@
 在此，我将利用我业余的时间，把学习和工作当中的相关代码整合成一个模板，大家有任何无法适用于自己任务中的问题都可以提Issue来沟通讨论。
 
 
-### train
+### train & validation
 
 * input
     * query set
     * support set
-    
-每一个batch当中的前几个肯定是support set，此时就可以直接通过是。  
+  
 
-* output
-    * loss
-    * 
+
+
+每一个batch当中的前几个肯定是support set，此时就可以直接通过是.
+
+
+### test
+
+* input
+  * query set
+  * support set
+
+
+
+## Slot filling

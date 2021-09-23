@@ -2,7 +2,9 @@ from __future__ import annotations
 import os
 from typing import Optional, List, Union
 import json
+from logging import Logger
 from tap import Tap
+from loguru import logger
 
 from src.schema import FewShotDataSet, Metric
 
@@ -73,3 +75,7 @@ class TrainerConfig(BaseConfig):
     def from_file(cls, file: str) -> TrainerConfig:
         args = cls._load_args(file, 'trainer')
         return TrainerConfig().parse_args(args, known_only=True)
+
+
+def get_logger() -> Logger:
+    return logger
